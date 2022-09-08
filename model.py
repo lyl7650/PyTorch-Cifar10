@@ -29,3 +29,4 @@ if __name__=='__main__':
     output=model(input)
     print(output.shape)
     print(output)
+    
