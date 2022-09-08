@@ -1,8 +1,6 @@
 
 import os
-from numpy.lib.twodim_base import triu_indices_from
 import torch
-from torch.nn.modules.pooling import MaxPool2d
 from torch.utils.data.dataloader import DataLoader
 from torch.utils.tensorboard import writer
 import torchvision
@@ -25,7 +23,6 @@ train_dataloader=DataLoader(train_data,batch_size=16)
 test_dataloader=DataLoader(test_data,batch_size=16)
 
 
-
 ##创建模型
 model=Cifar()
 if torch.cuda.is_available():
@@ -37,14 +34,12 @@ lr=0.0001
 opt=torch.optim.SGD(model.parameters(),lr=lr)
 
 ##设置参数
-
 total_train_step=0
 total_test_step=0
 epoch=10
 
 ##添加tensorboard
 
-#writer=SummaryWriter('./logs_train')
 
 for i in range(epoch):
     print('----------第{}轮训练-----------'.format(i+1))
@@ -76,13 +71,10 @@ for i in range(epoch):
 
     print('整体测试集第loss {}'.format(total_test_loss))
     print('整体测试集 accuracy{}'.format(total_acc/test_data_size))
-    #writer.add_scalar("test_loss",total_test_loss,total_test_step)
-    #writer.add_scalar("test_acc",total_acc/test_data_size)
+
     total_test_loss=total_test_loss+1
-    ##
     torch.save(model,'cifar10_model{}.pth'.format(i))
     print('model has been saved')
 
 
-#writer.close()
 
